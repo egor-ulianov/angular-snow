@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { NgxSnowComponent } from './ngx-snow.component';
+import { TextInputComponent } from './components/text-input/text-input.component';
 
 
 
 @NgModule({
   declarations: [
-    NgxSnowComponent
+    NgxSnowComponent,
+    TextInputComponent
   ],
   imports: [
   ],
