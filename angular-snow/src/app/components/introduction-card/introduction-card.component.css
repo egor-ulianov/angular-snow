@@ -1,20 +1,77 @@
 body {
     perspective: 800px;
+    min-width:540px;
+    min-height:590px;
+    width: auto !important;
+    width: auto !important;
+    width:540px;  
+    width:590px;  
+}
+
+@media (orientation: landscape) {
+    .card-container {
+        padding: 5vw;
+        height: 65vh;
+        width: 65vw;
+    }
+
+    .networks-container {
+        flex-direction: row;
+    }
+
+    .avatar-logo {
+        width: 30vh;
+        border-radius: 15px;
+        height: 30vh;
+    }
+
+    .header {
+        font-size: clamp(20px, 6vh, 40px);
+        width: 220px;
+    }
+
+    .description {
+        font-size: clamp(15px, 5vh, 30px);
+    }
+}
+
+@media (orientation: portrait) {
+    .card-container {
+        padding: 5vh;
+        height: 70vh;
+        width: 65vw;
+        margin-top: 10vh !important;
+    }
+
+    .networks-container {
+        flex-direction: column;
+    }
+
+    .avatar-logo {
+        width: 25vw;
+        border-radius: 15px;
+        height: 25vw;
+    }
+
+    .header {
+        font-size: clamp(20px, 6vw, 40px);
+        width: 170px !important
+        ;
+    }
+
+    .description {
+        font-size: clamp(15px, 5vw, 30px);
+    }
 }
 
 .card-container {
-    width: 400px;
-    height: 650px;
     margin: auto;
     background: #205295;
     background: linear-gradient(180deg, rgba(32,82,149,1) 0%, rgba(44,116,179,1) 100%);
     border: 0px;
     border-radius: 15px;
-    transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.3s all;
-    padding: 50px;
-    max-height: 80vh;
-    max-width: 80vw;
-    box-shadow: 0px 0px 50px 0px #0A2647;
+    transition: ease 0.3s all;
+    box-shadow: 0px 0px 50px 0px #325782;
 }
 
 .card-flex-container {
@@ -27,31 +84,40 @@ body {
     gap: 20px;
 }
 
-.card-container:hover {
-    transform: rotate3d(0.5, 2, 0, 30deg);
+.card-container-half-rotate {
+    transform: rotate3d(-0.2, 2, 0, 90deg);
 }
 
 .avatar-logo {
-    max-width: 150px;
-    min-width: 150px;
-    width: 150px;
-    border-radius: 15px;
-    height: 150px;
     background-image: url('resources/avatar.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 110px;
+    min-height: 110px;
 }
 
 .header {
     font-family: 'Chakra Petch', sans-serif;
     white-space: initial;
     color: whitesmoke;
-    height: 150px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
-    font-size: xx-large;
     width: 220px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-back {
+    width: auto;
+    margin: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: fit-content;
+    text-align: center;
 }
 
 .name-surname-text {
@@ -59,14 +125,15 @@ body {
     font-weight: 600;
     white-space: initial;
     margin-bottom: 5px;
+    margin-top: 0px;
 }
 
 .description {
     font-weight: 200;
     white-space: initial;
-    font-size: x-large;
     margin: auto;
     margin-top: 0px;
+    margin-bottom: 5px;
 }
 
 .flags {
@@ -78,12 +145,13 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+    margin-bottom: 10px;
 }
 
 .flag {
     width: 40px;
-    height: 40px;
-    margin: 10px;
+    height: 30px;
+    margin: 1vw;
 }
 
 .ru-flag {
@@ -91,6 +159,26 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.flag-content {
+    transition: ease 0.3s all;
+    opacity: 0;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.flag-content:hover {
+    opacity: 1;
+    background-color: #2053957c;
+    cursor: pointer;
+}
+
+.flag-chosen {
+    border: whitesmoke 2px solid;
+    border-radius: 5px;
+    width: 36px;
+    height: 26px;
 }
 
 .en-flag {
@@ -113,7 +201,7 @@ body {
     color: whitesmoke;
     display: flex;
     flex-direction: column;
-    font-size: x-large;
+    font-size: clamp(15px, 2vh, 25px);
     margin: auto;
     margin-left: 0px;
     text-align: left;
@@ -123,6 +211,56 @@ body {
     background-image: url('resources/snowflake.png');
     background-position: left top 5px;
     background-repeat: no-repeat;
-    background-size: 25px 25px;
-    padding-left: 40px;
+    background-size: 2vh 2vh;
+    padding-left: 3vh;
+}
+
+.backside-container {
+    flex-direction: column;
+}
+
+.networks-container {
+    display: flex;
+    flex-direction: row;
+    font-family: 'Chakra Petch', sans-serif;
+    white-space: initial;
+    flex-wrap: wrap;
+    color: whitesmoke;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.network-point {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    cursor: pointer;
+    transition: ease 0.3s all;
+}
+
+.network-point:hover {
+    transform: scale(1.05);
+}
+
+.qr-image {
+    width: 15vh;
+    border-radius: 15px;
+    height: 15vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.telegram-qr {
+    background-image: url('resources/telegram.png');
+}
+
+.linkedin-qr {
+    background-image: url('resources/linkedin.png');
+}
+
+.github-qr {
+    background-image: url('resources/github.png');
 }
