@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProInputComponent } from './components/pro-input/pro-input.component';
+import { IntroductionCardComponent } from './components/introduction-card/introduction-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProInputComponent
+    IntroductionCardComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot([
+      { path: 'introduction', component: IntroductionCardComponent },
+    ], { relativeLinkResolution: 'legacy' }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,128 @@
+body {
+    perspective: 800px;
+}
+
+.card-container {
+    width: 400px;
+    height: 650px;
+    margin: auto;
+    background: #205295;
+    background: linear-gradient(180deg, rgba(32,82,149,1) 0%, rgba(44,116,179,1) 100%);
+    border: 0px;
+    border-radius: 15px;
+    transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.3s all;
+    padding: 50px;
+    max-height: 80vh;
+    max-width: 80vw;
+    box-shadow: 0px 0px 50px 0px #0A2647;
+}
+
+.card-flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: stretch;
+    gap: 20px;
+}
+
+.card-container:hover {
+    transform: rotate3d(0.5, 2, 0, 30deg);
+}
+
+.avatar-logo {
+    max-width: 150px;
+    min-width: 150px;
+    width: 150px;
+    border-radius: 15px;
+    height: 150px;
+    background-image: url('resources/avatar.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.header {
+    font-family: 'Chakra Petch', sans-serif;
+    white-space: initial;
+    color: whitesmoke;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    font-size: xx-large;
+    width: 220px;
+}
+
+.name-surname-text {
+    margin: auto;
+    font-weight: 600;
+    white-space: initial;
+    margin-bottom: 5px;
+}
+
+.description {
+    font-weight: 200;
+    white-space: initial;
+    font-size: x-large;
+    margin: auto;
+    margin-top: 0px;
+}
+
+.flags {
+    white-space: initial;
+    font-size: x-large;
+    margin: auto;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.flag {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+}
+
+.ru-flag {
+    background-image: url('resources/russia-flag.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.en-flag {
+    background-image: url('resources/britain-flag.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cz-flag {
+    background-image: url('resources/czech_flag.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.biography {
+    font-family: 'Chakra Petch', sans-serif;
+    white-space: initial;
+    color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    font-size: x-large;
+    margin: auto;
+    margin-left: 0px;
+    text-align: left;
+}
+
+.biography-point {
+    background-image: url('resources/snowflake.png');
+    background-position: left top 5px;
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    padding-left: 40px;
+}
