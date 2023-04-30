@@ -1,0 +1,58 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+<div class="card-container card-flex-container" *ngIf="viewModel.firstOpened" [class.card-container-half-rotate]="viewModel.launchedTurn">
+    <div class="avatar-logo" (click)="turnCard()">
+    </div>
+    <div class="header">
+        <div class="name-surname-text">Egor Ulianov</div>
+        <div class="description">Software developer</div>
+        <div class="flags">
+            <div class="flag ru-flag" [class.flag-chosen]="viewModel.selectedLanguage === languagesEnum.Russian">
+                <div (click)="setLanguage(languagesEnum.Russian)" class="flag-content">C2</div>
+            </div>
+            <div class="flag en-flag" [class.flag-chosen]="viewModel.selectedLanguage === languagesEnum.English">
+                <div (click)="setLanguage(languagesEnum.English)"  class="flag-content">B2</div>
+            </div>
+            <div class="flag cz-flag" [class.flag-chosen]="viewModel.selectedLanguage === languagesEnum.Czech">
+                <div (click)="setLanguage(languagesEnum.Czech)"  class="flag-content">C1</div>
+            </div>
+        </div>
+    </div>
+    <div class="biography">
+        <div class="biography-point">
+            Born in Siberia in 2000
+        </div>
+        <div class="biography-point">
+            Graduated from high school in 2018 with honors
+        </div>
+        <div class="biography-point">
+            Moved to the Czech Republic in 2018
+        </div>
+        <div class="biography-point">
+            Work in Misterine s.r.o. since summer 2019
+        </div>
+        <div class="biography-point">
+            Graduated from the FEE CTU in Prague with a bachelor's degree in 2022
+        </div>
+    </div>
+</div>
+<div class="card-container card-flex-container" *ngIf="viewModel.secondOpened" [class.card-container-half-rotate]="viewModel.halfFinishedTurn">
+    <div class="header header-back">
+        <div class="">My social networks</div>
+    </div>
+    <div class="networks-container">
+        <div class="network-point" (click)="toTelegramPage()">
+            <div class="qr-image telegram-qr"></div>
+            <div>Telegram</div>
+        </div>
+        <div class="network-point" (click)="toLinkedInPage()">
+            <div class="qr-image linkedin-qr"></div>
+            <div>LinkedIn</div>
+        </div>
+        <div class="network-point" (click)="toGithubPage()">
+            <div class="qr-image github-qr"></div>
+            <div>GitHub</div>
+        </div>
+    </div>
+</div>
