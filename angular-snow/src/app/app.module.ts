@@ -16,7 +16,7 @@ import { IntroductionCardComponent } from './components/introduction-card/introd
     AppRoutingModule,
     RouterModule.forRoot([
       { path: 'introduction', component: IntroductionCardComponent },
-    ], { relativeLinkResolution: 'legacy' }),
+    ], {}),
   ],
   providers: [],
   bootstrap: [AppComponent]
