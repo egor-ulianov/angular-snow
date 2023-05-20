@@ -1,7 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@keyframes background-show {
+    0%      {
+                opacity: 0.0;
+                scale: 1;
+            }
+    65%    {
+                opacity: 0.9;
+                scale: 1.02;
+            }    
+    100%    {
+                opacity: 1.0;
+                scale: 1.0;
+            }
+}
+
 .main-background {
-    background-image: url('resources/train-background.png');
+    background-color: rgb(10, 10, 21);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+}
+
+.main-background-show {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('resources/stars.png');
+    opacity: 0.0;
+    animation: background-show 1s ease 0.5s 1 alternate forwards;
+    z-index: -1;
+}
+
+.content {
+    z-index: 2;
 }
