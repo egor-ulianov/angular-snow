@@ -1,6 +1,6 @@
-<video id="webcam" [width]="cameraWidth" [height]="cameraHeight" class="video-placeholder" autoplay muted playsinline></video>
-<div *ngIf="devicesList" class="devices">
-    <div *ngFor="let device of devicesList">
-        {{device.kind + ' ' + device.label}}
-    </div>
+<div class="camera-displayer">
+    <div class="loader-container" *ngIf="!viewModel.isCameraLoaded"><div class="loader"></div></div>
+    <video #video id="webcam" [width]="cameraWidth" [height]="cameraHeight" class="video-placeholder" autoplay muted playsinline></video>
+    <div #canvas class="canvas-container"></div>
 </div>
+

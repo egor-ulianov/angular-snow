@@ -18,6 +18,8 @@
     "@angular/platform-browser": "^15.2.8",
     "@angular/platform-browser-dynamic": "^15.2.8",
     "@angular/router": "^15.2.8",
+    "@tensorflow/tfjs-core": "^4.6.0",
+    "face-api.js": "^0.22.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -37,5 +39,10 @@
     "karma-jasmine-html-reporter": "~1.7.0",
     "ng-packagr": "^15.2.2",
     "typescript": "~4.9.5"
-  }
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
+ }
 }

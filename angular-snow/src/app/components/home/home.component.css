@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-around;
     font-size: xx-large;
-    margin-top: 10vh;
+    margin-top: 5vh;
 }
 
 .menu-container {
@@ -19,7 +19,10 @@
     margin-left: 5vw;
     margin-right: 5vw;
     margin-top: 5vh;
-    gap: 10px
+    gap: 10px;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .menu-container::-webkit-scrollbar {
