@@ -7,7 +7,7 @@ export class HomeViewModel
     public menuItems: MenuItem[] = 
         [
             new MenuItem("About me", "Here you can find some information about me and my main social networks", "/introduction", "fa-solid fa-id-card"),
-            new MenuItem("Face detector", "Find out how awesome you are", "/introduction", "fa-solid fa-face-grin-wide")
+            new MenuItem("Face detector", "Find out how awesome you are", "/face-detector", "fa-solid fa-face-grin-wide")
         ];
 
     //#endregion Properties
