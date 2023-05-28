@@ -43,12 +43,6 @@
     max-width: 300px;
 }
 
-.canvas-main {
-    position: relative;
-    top: 8px;
-    left: 0;
-}
-
 .loader {
     border: 16px solid #2828284c; /* Light grey */
     border-top: 16px solid #212121; /* Blue */

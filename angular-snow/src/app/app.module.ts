@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { IntroductionCardComponent } from './components/introduction-card/introduction-card.component';
 import { HomeComponent } from './components/home/home.component';
 import { FaceDetectorComponent } from './components/face-detector/face-detector.component';
+import { ObjectDetectorComponent } from './components/object-detector/object-detector.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IntroductionCardComponent,
     HomeComponent,
-    FaceDetectorComponent
+    FaceDetectorComponent,
+    ObjectDetectorComponent
   ],
   imports: [
     BrowserModule,
@@ -21,6 +23,7 @@ import { FaceDetectorComponent } from './components/face-detector/face-detector.
     RouterModule.forRoot([
       { path: 'introduction', component: IntroductionCardComponent },
       { path: 'face-detector', component: FaceDetectorComponent },
+      { path: 'object-detector', component: ObjectDetectorComponent },
       { path: 'home', component: HomeComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full'}
     ], {}),

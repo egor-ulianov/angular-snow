@@ -36,7 +36,7 @@
     max-height: 60vh;
     color: whitesmoke;
     font-family: 'Chakra Petch', sans-serif;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.83);
     border-radius: 5px;
     text-align: center;
     padding: 15px;
@@ -45,6 +45,7 @@
 
 .menu-item:hover {
     scale: 1.02;
+    background-color: rgba(0, 0, 0, 0.95);
 }
 
 .menu-icon {
