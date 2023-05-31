@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FaceDetectorViewModel } from 'src/app/shared/view-models/face-detector.view-model';
-//import * as faceapi from '@vladmandic/face-api';
 import * as tf from "@tensorflow/tfjs";
 import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import { MediaPipeFaceMeshModelConfig } from '@tensorflow-models/face-landmarks-detection/dist/mediapipe/types';
@@ -198,51 +197,6 @@ export class FaceDetectorComponent implements OnInit
       context.strokeStyle = "teal";
       context.stroke(region);
   }
-
-
-
-  private async loadModels(): Promise<void>
-  {
-    // await Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri('../../assets/models'),
-    // await faceapi.nets.faceLandmark68Net.loadFromUri('../../assets/models'),
-    // await faceapi.nets.faceLandmark68TinyNet.loadFromUri('../../assets/models'),
-    // await faceapi.nets.faceRecognitionNet.loadFromUri('../../assets/models'),
-    // await faceapi.nets.faceExpressionNet.loadFromUri('../../assets/models'),]).then(() => this.startWebCam());
-  }
-
-  // private async detectFacesObsolete(): Promise<void> 
-  // {
-  //   this.elRef.nativeElement.querySelector('video').addEventListener('play', async () => 
-  //     {
-  //       this.canvas = await faceapi.createCanvasFromMedia(this.videoInput);
-
-  //       if (this.canvasRef)
-  //         this.canvasEl = this.canvasRef.nativeElement;
-  //       this.canvasEl.appendChild(this.canvas);
-  //       this.canvas.setAttribute('id', 'canvass');
-  //       this.canvas.setAttribute(
-  //           'style',`position: relative;
-  //           top: 0;
-  //           left: 0;`
-  //       );
-  //       this.displaySize = {
-  //           width: document.getElementById('webcam')?.offsetWidth,
-  //           height: document.getElementById('webcam')?.offsetHeight
-  //       };
-  //       faceapi.matchDimensions(this.canvas, this.displaySize);
-  //       setInterval(async () => {
-  //         this.detection = await faceapi.detectAllFaces(this.videoInput,  new  faceapi.TinyFaceDetectorOptions({scoreThreshold: 0.98})).withFaceLandmarks(true).withFaceExpressions();
-  //         this.resizedDetections = faceapi.resizeResults(
-  //             this.detection,
-  //             this.displaySize
-  //           );
-  //         this.canvas.getContext('2d').clearRect(0, 0, this.canvas.width, this.canvas.height);
-  //         faceapi.draw.drawDetections(this.canvas, this.resizedDetections);
-  //         faceapi.draw.drawFaceLandmarks(this.canvas, this.resizedDetections);
-  //         faceapi.draw.drawFaceExpressions(this.canvas, this.resizedDetections);
-  //       }, 100);
-  //     });
-  //   }
 
   //#endregion Private methods
 }

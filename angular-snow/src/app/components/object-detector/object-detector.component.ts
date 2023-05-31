@@ -1,11 +1,14 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ContentChild, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ObjectDetectorViewModel } from 'src/app/shared/view-models/object-detector.view-model';
 
 import '@tensorflow/tfjs-backend-cpu';
 import '@tensorflow/tfjs-backend-webgl';
 import * as tf from "@tensorflow/tfjs"
+import { GraphModel } from '@tensorflow/tfjs';
 
-//import * as cocoSsd from '@tensorflow-models/coco-ssd';
+import * as cocoSsd from '@tensorflow-models/coco-ssd';
+import { DetectedObject } from '@tensorflow-models/coco-ssd';
+import { ColorsHelper } from 'src/app/shared/helpers/colors.helper';
 //import * as faceapi from '@vladmandic/face-api';
 //import { DetectedObject } from '@tensorflow-models/coco-ssd';
 
@@ -19,8 +22,10 @@ export class ObjectDetectorComponent implements OnInit
   //#region Properties
 
   public viewModel: ObjectDetectorViewModel;
+  public graphModel: GraphModel | null;
 
-  //public model: cocoSsd.ObjectDetection | null;
+  public model: cocoSsd.ObjectDetection | null;
+  public classes: (string | null)[] = [];
 
 
 
@@ -29,8 +34,8 @@ export class ObjectDetectorComponent implements OnInit
   @ViewChild('video',{ static: true })
   public video: ElementRef | null;
 
-  @ViewChild('canvas',{ static: true })
-  public canvasRef: ElementRef | null;
+  @ViewChild('canvasElement',{ static: true })
+  public canvasRef: ElementRef<HTMLCanvasElement> | null;
 
   public stream: any;
   public detection: any;
@@ -47,10 +52,11 @@ export class ObjectDetectorComponent implements OnInit
   constructor(private elRef: ElementRef)
   {
     this.viewModel = new ObjectDetectorViewModel();
-    //this.model = null;
+    this.model = null;
     this.devicesList = null;
     this.canvasRef = null;
     this.video = null;
+    this.graphModel = null;
   }
 
   //#endregion Constructors
@@ -59,7 +65,9 @@ export class ObjectDetectorComponent implements OnInit
 
   public async ngOnInit(): Promise<void>
   {
-    //await this.loadModel();
+    await this.loadModel();
+    await this.startWebCam();
+    this.startDetectThings();
   }
 
   //#endregion Angular lifecycle
@@ -85,107 +93,85 @@ export class ObjectDetectorComponent implements OnInit
 
   //#region Private methods
 
-  // private async loadModel(): Promise<void>
-  // {
-  //   this.model?.dispose();
-
-  //   await cocoSsd.load({base: 'lite_mobilenet_v2'})
-  //     .then(result =>
-  //       {
-  //         this.model = result;
-  //         this.startWebCam();
-  //       });
-  // }
-
-  // private async startWebCam(): Promise<void>
-  // {
-  //   this.devicesList = await navigator.mediaDevices.enumerateDevices();
-
-  //   if (this.video)
-  //     this.videoInput = this.video.nativeElement;
-
-  //   await navigator.mediaDevices.getUserMedia(
-  //     { 
-  //       video: {facingMode: 'user'}, 
-  //       audio: false 
-  //     })
-  //     .then((stream) => 
-  //     {
-  //       this.videoInput.srcObject = stream;
-  //       let {width, height} = stream.getTracks()[0].getSettings();
-  //       this.viewModel.cameraWidth = width ?? 1;
-  //       this.viewModel.cameraHeight = height ?? 1;
-  //     })
-  //     .catch(
-  //       (err) => 
-  //       console.log(err)
-  //     );
-      
-  //   this.viewModel.isCameraLoaded = true;
-  //   this.detectThings();
-  // }
-
-  private async detectThings(): Promise<void>
+  private async loadModel(): Promise<void>
   {
-    // this.elRef.nativeElement.querySelector('video').addEventListener('play', async () => 
-    //   {
-    //     this.canvas = await faceapi.createCanvasFromMedia(this.videoInput);
+    this.model?.dispose();
 
-    //     if (this.canvasRef)
-    //       this.canvasEl = this.canvasRef.nativeElement;
-    //     this.canvasEl.appendChild(this.canvas);
-    //     this.canvas.setAttribute('id', 'canvass');
-    //     this.canvas.setAttribute(
-    //         'style',`position: relative;
-    //         top: 0;
-    //         left: 0;`
-    //     );
-    //     this.displaySize = {
-    //         width: document.getElementById('webcam')?.offsetWidth,
-    //         height: document.getElementById('webcam')?.offsetHeight
-    //     };
-    //     faceapi.matchDimensions(this.canvas, this.displaySize);
-    //     setInterval(async () => 
-    //     {
-    //       let camera = await tf.data.webcam(document.getElementById('webcam') as HTMLVideoElement);
-    //       let image = await camera.capture();
-    //       let result: DetectedObject[] | undefined = await this.model?.detect(image, 40, 0.99);
-    //       let context: CanvasRenderingContext2D = this.canvas.getContext('2d');
-    //       context.clearRect(0, 0,      this.canvas.width,this.canvas.height);
-    //       context.font = '15px Arial';
+    await cocoSsd.load({base: 'lite_mobilenet_v2'})
+      .then(result =>
+        {
+          this.model = result;
+          this.startWebCam();
+        });
+  }
 
-    //       if (!result)
-    //         return;
-          
-    //       console.log('number of detections: ', result.length);
-    //       for (let i = 0; i < result.length; i++) 
-    //       {
-    //         //context.beginPath();
-    //         //if (result[i].bbox[2] == 0 && result[i].bbox[3] == 0)
-    //           //continue;
-            
-    //         //context.clearRect(0, 0,      this.canvas.width,this.canvas.height);
-    //         context.rect(...result[i].bbox);
-    //         context.lineWidth = 4;
-    //         context.strokeStyle = 'green';
-    //         context.fillStyle = 'green';
-    //         context.stroke();
-    //         console.log(result[i].score.toFixed(3) + ' ' + result[i].class + ' (' +
-    //         result[i].bbox[0] + ' ' +
-    //         result[i].bbox[1] + ' ' +
-    //         result[i].bbox[2] + ' ' +
-    //         result[i].bbox[3] + ') ');
-    //         context.fillText(
-    //             result[i].score.toFixed(3) + ' ' + result[i].class + ' (' +
-    //             result[i].bbox[0] + ' ' +
-    //             result[i].bbox[1] + ' ' +
-    //             result[i].bbox[2] + ' ' +
-    //             result[i].bbox[3] + ') ', 
-    //             result[i].bbox[0],
-    //             result[i].bbox[1] > 10 ? result[i].bbox[1] - 5 : 10);
-    //       }
-    //     }, 500);
-    //   });
+  private async startWebCam(): Promise<void>
+  {
+    this.devicesList = await navigator.mediaDevices.enumerateDevices();
+
+    if (this.video)
+      this.videoInput = this.video.nativeElement;
+
+    await navigator.mediaDevices.getUserMedia(
+      { 
+        video: {facingMode: 'user'}, 
+        audio: false 
+      })
+      .then((stream) => 
+      {
+        this.videoInput.srcObject = stream;
+        let {width, height} = stream.getTracks()[0].getSettings();
+        this.viewModel.cameraWidth = width ?? 1;
+        this.viewModel.cameraHeight = height ?? 1;
+      })
+      .catch(
+        (err) => 
+        console.log(err)
+      );
+      
+    this.viewModel.isCameraLoaded = true;
+  }
+
+  private async startDetectThings(): Promise<void>
+  {
+    this.canvasRef?.nativeElement.setAttribute('width', this.viewModel.cameraWidth.toString());
+    this.canvasRef?.nativeElement.setAttribute('height', this.viewModel.cameraHeight.toString());
+    let context: CanvasRenderingContext2D | undefined | null 
+      = this.canvasRef?.nativeElement.getContext('2d');
+    
+    setInterval(async () => 
+      {
+        context ? this.detectThings(context) : '';
+      }, 30);
+  }
+
+  private async detectThings(context: CanvasRenderingContext2D): Promise<void>
+  {
+    console.log(this.canvasRef?.nativeElement.width + ' ' + this.canvasRef?.nativeElement.height);
+    this.classes = [];
+    context.clearRect(0, 0, this.canvasRef?.nativeElement.width ?? 0, this.canvasRef?.nativeElement.height ?? 0);
+    let detectedObjects: DetectedObject[] = [];
+
+    if (this.video?.nativeElement)
+      await this.model?.detect(this.video?.nativeElement)
+        .then(result =>
+          {
+            detectedObjects = result;
+          });
+        
+      this.classes = this.classes.concat(detectedObjects.map(dObj => this.classes.includes(dObj.class) ? null : dObj.class).filter(val => val != null));
+      detectedObjects.forEach(dObj =>
+      {
+        context.beginPath();
+        context.fillStyle = ColorsHelper.getColorViaIndex(this.classes.indexOf(dObj.class));
+        context.lineWidth = 4;
+        context.strokeStyle = ColorsHelper.getColorViaIndex(this.classes.indexOf(dObj.class));
+        context.roundRect(...dObj.bbox, 5);
+        context.font = "25px Chakra Petch";
+        context.fillText(dObj.class, dObj.bbox[0] + 30, dObj.bbox[1] + 30);
+        context.stroke();
+        context.closePath();
+      });
   }
 
   //#endregion Private methods
