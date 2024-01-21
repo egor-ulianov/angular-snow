@@ -1,0 +1,12 @@
+<div>
+    <div id="welcome" class="welcome">
+        Welcome to my GitHub!
+    </div>
+    <div id="menu" class="menu-container">
+        <div *ngFor="let menuItem of viewModel.menuItems" class="menu-item" [routerLink]="[menuItem.link]">
+            <div *ngIf="menuItem.faIcon" class="menu-icon"><i class="{{menuItem.faIcon}}"></i></div>
+            <div class="menu-title">{{menuItem.label}}</div>
+            <div class="menu-description">{{menuItem.description}}</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+.welcome {
+    color: whitesmoke;
+    font-family: 'Chakra Petch', sans-serif;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    font-size: xx-large;
+    margin-top: 5vh;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    justify-content: flex-start;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-top: 5vh;
+    gap: 10px;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.menu-container::-webkit-scrollbar {
+    display: none;
+  }
+
+.menu-item {
+    min-width: 300px;
+    max-width: 300px;
+    height: 500px;
+    max-height: 60vh;
+    color: whitesmoke;
+    font-family: 'Chakra Petch', sans-serif;
+    background-color: rgba(0, 0, 0, 0.83);
+    border-radius: 5px;
+    text-align: center;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+    scale: 1.02;
+    background-color: rgba(0, 0, 0, 0.95);
+}
+
+.menu-icon {
+    font-size: 60px;
+}
+
+.menu-title {
+    margin-top: 20px;
+    font-size: xx-large;
+}
+
+.menu-description {
+    margin-top: 20px;
+    font-size: x-large;
+}

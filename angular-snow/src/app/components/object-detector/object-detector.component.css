@@ -1,0 +1,58 @@
+.video-placeholder {
+    background-color: #000;
+    position: relative;
+    top: 0;
+}
+
+.devices {
+    color: white;
+}
+
+.camera-displayer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.canvas-container {
+    position: absolute;
+    top: 0;
+}
+
+.loader-container {
+    position: absolute;
+    top: calc(50vh - 120px);
+    z-index: 5;
+}
+
+.back-container {
+    color: whitesmoke;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: x-large;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background:rgba(0, 0, 0, 0.434);
+    border-radius: 5px;
+    position: absolute;
+    bottom: 10vh;
+    z-index: 5;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90vw;
+    max-width: 300px;
+}
+
+.loader {
+    border: 16px solid #2828284c; /* Light grey */
+    border-top: 16px solid #212121; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
