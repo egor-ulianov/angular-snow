@@ -9,6 +9,9 @@ import { HomeComponent } from './components/home/home.component';
 import { FaceDetectorComponent } from './components/face-detector/face-detector.component';
 import { ObjectDetectorComponent } from './components/object-detector/object-detector.component';
 import { ArDemoComponent } from './components/ar-demo/ar-demo.component';
+import { NetworkScienceComponent } from './components/network-science/network-science.component';
+import { ExampleNetworkComponent } from './shared/components/example-network/example-network.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -17,17 +20,21 @@ import { ArDemoComponent } from './components/ar-demo/ar-demo.component';
     HomeComponent,
     FaceDetectorComponent,
     ObjectDetectorComponent,
-    ArDemoComponent
+    ArDemoComponent,
+    NetworkScienceComponent,
+    ExampleNetworkComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HighchartsChartModule,
     RouterModule.forRoot([
       { path: 'introduction', component: IntroductionCardComponent },
       { path: 'face-detector', component: FaceDetectorComponent },
       { path: 'object-detector', component: ObjectDetectorComponent },
       { path: 'ar-demo', component: ArDemoComponent },
       { path: 'home', component: HomeComponent },
+      { path: 'network-science', component: NetworkScienceComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full'}
     ], {}),
   ],
