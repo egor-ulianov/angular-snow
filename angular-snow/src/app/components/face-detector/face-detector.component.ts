@@ -83,7 +83,11 @@ export class FaceDetectorComponent implements OnInit
 
   //#region Public methods
 
-  public async startWebCam(): Promise<void>
+  //#endregion Public methods
+
+  //#region Private methods
+
+  private async startWebCam(): Promise<void>
   {
     this.devicesList = await navigator.mediaDevices.enumerateDevices();
 
@@ -109,10 +113,6 @@ export class FaceDetectorComponent implements OnInit
       
     this.viewModel.isCameraLoaded = true;
   }
-
-  //#endregion Public methods
-
-  //#region Private methods
 
   private async runFacemesh(): Promise<void>
   {

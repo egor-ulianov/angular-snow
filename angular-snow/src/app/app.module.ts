@@ -8,6 +8,7 @@ import { IntroductionCardComponent } from './components/introduction-card/introd
 import { HomeComponent } from './components/home/home.component';
 import { FaceDetectorComponent } from './components/face-detector/face-detector.component';
 import { ObjectDetectorComponent } from './components/object-detector/object-detector.component';
+import { ArDemoComponent } from './components/ar-demo/ar-demo.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ObjectDetectorComponent } from './components/object-detector/object-det
     IntroductionCardComponent,
     HomeComponent,
     FaceDetectorComponent,
-    ObjectDetectorComponent
+    ObjectDetectorComponent,
+    ArDemoComponent
   ],
   imports: [
     BrowserModule,
@@ -24,6 +26,7 @@ import { ObjectDetectorComponent } from './components/object-detector/object-det
       { path: 'introduction', component: IntroductionCardComponent },
       { path: 'face-detector', component: FaceDetectorComponent },
       { path: 'object-detector', component: ObjectDetectorComponent },
+      { path: 'ar-demo', component: ArDemoComponent },
       { path: 'home', component: HomeComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full'}
     ], {}),
