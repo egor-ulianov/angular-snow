@@ -12,6 +12,8 @@ import { ArDemoComponent } from './components/ar-demo/ar-demo.component';
 import { NetworkScienceComponent } from './components/network-science/network-science.component';
 import { ExampleNetworkComponent } from './shared/components/example-network/example-network.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { InstagramNetworkComponent } from './shared/components/instagram-network/instagram-network.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,12 +24,14 @@ import { HighchartsChartModule } from 'highcharts-angular';
     ObjectDetectorComponent,
     ArDemoComponent,
     NetworkScienceComponent,
-    ExampleNetworkComponent
+    ExampleNetworkComponent,
+    InstagramNetworkComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HighchartsChartModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: 'introduction', component: IntroductionCardComponent },
       { path: 'face-detector', component: FaceDetectorComponent },
@@ -38,7 +42,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
       { path: '', redirectTo: '/home', pathMatch: 'full'}
     ], {}),
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

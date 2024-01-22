@@ -1,144 +1,376 @@
 <div>
     <h1>Analysing Instagram Networks of cafes in Prague</h1>
 
-    <h2>Introduction</h2>
-    <h3>Project aim</h3>
-    <p>
-        The aim of this project is to analyse the Instagram networks of cafes in Prague. The project is divided into two parts. The first part is to collect data from Instagram and the second part is to analyse the data.
-    </p>
+    <div *ngIf="pageIndex == 0" class="part focused">
+        <h2>Introduction</h2>
+        <h3>Project aim</h3>
+        <p>
+            The aim of this project is to analyse the Instagram networks of cafes in Prague. The project is divided into two parts. The first part is to collect data from Instagram and the second part is to analyse the data.
+        </p>
 
-    <h3>Questions</h3>
-    <p>
-        The following questions are asked in this project:
-    </p>
-    <ul>
-        <li>Is it possible to obtain the network data using Instagram API?</li>
-        <li>Can Network Science instruments provide insights about peoples preferences on the market?</li>
-        <li>Can be the results obtained in this study useful for business?</li>
-    </ul>
+        <h3>Questions</h3>
+        <p>
+            The following questions are asked in this project:
+        </p>
+        <ul>
+            <li>Is it possible to obtain the network data using Instagram API?</li>
+            <li>Can Network Science instruments provide insights about peoples preferences on the market?</li>
+            <li>Can be the results obtained in this study useful for business?</li>
+        </ul>
 
-    <h3>Research object</h3>
-    <p>
-        The research object is the Instagram network of cafes in Prague. 
-        The network is created by connecting cafes and their followers on Instagram. 
-    </p>
+        <h3>Research object</h3>
+        <p>
+            The research object is the Instagram network of cafes in Prague. 
+            The network is created by connecting cafes and their followers on Instagram. 
+        </p>
 
-    <h3>Research subject</h3>
-    <p>
-        The research subject is properties of the Instagram network of cafes in Prague.
-        The study focuses on the following properties:
-    </p>
-    <ul>
-        <li>Network size</li>
-        <li>Strongly connected components</li>
-        <li>Betweeness centrality</li>
-    </ul>
+        <h3>Research subject</h3>
+        <p>
+            The research subject is properties of the Instagram network of cafes in Prague.
+            The study focuses on the following properties:
+        </p>
+        <ul>
+            <li>Network size</li>
+            <li>Strongly connected components</li>
+            <li>Betweeness centrality</li>
+        </ul>
+
+        <button (click)="onNextPage()">Next page</button>
+    </div>
     
+    
+    <div *ngIf="pageIndex == 1" class="part focused">
+        <h2>Part I. Data collection</h2>
 
-    <h2>Part I. Data collection</h2>
+        <p>
+            In this part of the project, the process of data collection is discussed.
+        </p>
+    
+        <h3>Desired data quality</h3>
+        <p>
+            To construct the network, the following data are ideally needed:
+        </p>
+        <ul>
+            <li>Instagram username of a cafe</li>
+            <li>Instagram username of a follower</li>
+            <li>Relationship between a cafe and a follower</li>
+            <li>Relationship between followers</li>
+        </ul>
+    
+        <h3>Instagram API</h3>
+        <p>
+            Instagram provides an API for developers to access data from Instagram, which is called Graph API.
+            The Graph API makes it possible to get information about users, media, hashtags, locations, comments, and so on.
+            Unfortunately, the Graph API does not provide information about followers of users, which is needed for the project.
+            This issue, however, can be solved by using the Instagram API for the website and application.
+        </p>
+    
+        <h3>instagrapi</h3>
+        <p>
+            Instagrapi is an unofficial Instagram API for Python distributed under the MIT License. 
+            It is a wrapper for the Graph API which provides additional functionality.
+            Instagrapi makes it possible to get information about followers of users by using Instagram endpoints fof the website and application.
+        </p>
+        <a href="https://github.com/subzeroid/instagrapi">Source code on GitHub</a>
+    
+        <h3>Problems</h3>
+        <p>
+            From the beginning, the instagrapi library seemed to be promising for achieving the project aim.
+            However, the library has some problems which make it difficult to use.
+        </p>
+        <p>
+            The first problem is that the library uses chunked requests to get information about followers of users.
+            This approach is not efficient because it takes a lot of time to get information about all followers of the user.
+        </p>
+        <p>
+            The second problem is not related to the library itself but to the Instagram policy.
+            Generally, Instagram does not allow to scrape data. To respect these rules, the library has a built-in delay between requests. 
+            Also, the graphs provided here won't show nicknames of followers.
+            Instagram has got different instruments how to prevent scraping data from itself:
+        </p>
+        <ul>
+            <li>Instagram limits the number of requests each 15-20 minutes</li>
+            <li>Instagram limits the number of requests per 6 hours</li>
+            <li>Instagram blocks requests from the same IP address</li>
+            <li>Instagram blocks requests from the same device</li>
+            <li>Instagram blocks requests from the same account</li>
+            <li>Instagram block suspicious accounts</li>
+            <li>Instagram limits its sessions lifetime for suspicious accounts</li>
+        </ul>
+    
+        <h3>Solutions and Work-arounds</h3>
+        <p>
+            These problems are quite serious and make it difficult to collect the needed data from Instagram.
+            However, it is crucial to at least obtain the data about followers of cafes themselves, without follow connections between followers.
+            These data can be still obtaied by using the instagrapi library with the following work-arounds:
+        </p>
+        <ul>
+            <li>Use a proxy server to change IP address</li>
+            <li>Use a different account for each cafe</li>
+            <li>Use a different account for each session</li>
+        </ul>
+        <p>
+            Also, cafes with a small number of followers will be used to avoid the problem with the number of requests.
+        </p>
+        <p>
+            Yet, it is vital to somehow obtain the data about connections between followers.
+            For this purpose, it is possible to get information about mentions of cafes in posts of followers. 
+            These data are available through the Graph API and can be obtained by using the instagrapi library.
+        </p>
+    
+        <h3>Obtained data</h3>
+        <p>
+            The data are collected by using the instagrapi library.
+            The data are stored in JSON files.
+            The data are collected for the following Instagram accounts:
+        </p>
+        <div>
+            <div class="statistics-container">
+                <a href="https://www.instagram.com/caffe_pavilon_grebovka/">Caffe Pavilon Grebovka</a>
+                <div class="network-statistics">
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Followers</div>
+                        <div class="network-statistics-item-value">310</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Mention media</div>
+                        <div class="network-statistics-item-value">80</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Total mentions</div>
+                        <div class="network-statistics-item-value">131</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Collected nodes</div>
+                        <div class="network-statistics-item-value">325</div>
+                    </div>
+                </div>
+            </div>
+            <div class="statistics-container">
+                <a href="https://www.instagram.com/cupandcakeprague/">Cup And Cake</a>
+                <div class="network-statistics">
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Followers</div>
+                        <div class="network-statistics-item-value">2,034</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Mention media</div>
+                        <div class="network-statistics-item-value">83</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Total mentions</div>
+                        <div class="network-statistics-item-value">120</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Collected nodes</div>
+                        <div class="network-statistics-item-value">2108</div>
+                    </div>
+                </div>
+            </div>
+            <div class="statistics-container">
+                <a href="https://www.instagram.com/lajka_pivovarcafe/">Cafe Pivovar Lajka</a>
+                <div class="network-statistics">
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Followers</div>
+                        <div class="network-statistics-item-value">215</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Mention media</div>
+                        <div class="network-statistics-item-value">32</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Total mentions</div>
+                        <div class="network-statistics-item-value">86</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Collected nodes</div>
+                        <div class="network-statistics-item-value">268</div>
+                    </div>
+                </div>
+            </div>
+            <div class="statistics-container">
+                <a href="https://www.instagram.com/loftkarlin/">Loft</a>
+                <div class="network-statistics">
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Followers</div>
+                        <div class="network-statistics-item-value">2,059</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Mention media</div>
+                        <div class="network-statistics-item-value">178</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Total mentions</div>
+                        <div class="network-statistics-item-value">254</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Collected nodes</div>
+                        <div class="network-statistics-item-value">468</div>
+                    </div>
+                </div>
+            </div>
+            <div class="statistics-container">
+                <a href="https://www.instagram.com/periferiecafe/">Cafe Periferie</a>
+                <div class="network-statistics">
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Followers</div>
+                        <div class="network-statistics-item-value">1,911</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Mention media</div>
+                        <div class="network-statistics-item-value">133</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Total mentions</div>
+                        <div class="network-statistics-item-value">280</div>
+                    </div>
+                    <div class="network-statistics-item">
+                        <div class="network-statistics-item-title">Collected nodes</div>
+                        <div class="network-statistics-item-value">462</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button (click)="onNextPage()">Next page</button>
+    </div>
+    
+    <div *ngIf="pageIndex == 2" class="part focused">
+        <h2>Part II. Network construction and analysis</h2>
 
-    <p>
-        In this part of the project, the process of data collection is discussed.
-    </p>
+        <p>
+            This part discusses the process of network construction, namely, the used technologies and principles.
+        </p>
+        <h3>Used technologies</h3>
+        <p>
+            The network is constructed by using NetworkX library for Python.
+            NetworkX is a Python package for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks.
+        </p>
 
-    <h3>Desired data quality</h3>
-    <p>
-        To construct the network, the following data are ideally needed:
-    </p>
-    <ul>
-        <li>Instagram username of a cafe</li>
-        <li>Instagram username of a follower</li>
-        <li>Relationship between a cafe and a follower</li>
-        <li>Relationship between followers</li>
-    </ul>
+        <h3>Principles</h3>
+        <p>
+            To construct a network, it is necessary to define nodes and edges.
+            In our case, nodes are Instagram users and edges are connections between them.
+            The connections are defined by the following rules:
+        </p>
+        <ul>
+            <li>
+                If a user follows a cafe, then there is an edge from the user to the cafe.
+            </li>
+            <li>
+                If a user mentions a cafe in a post, then there is also an edge from the user to the cafe. 
+            </li>
+            <li>
+                If a user mentions another user in a post, then there is an edge from the user to the mentioned user and vice-versa. 
+            </li>
+        </ul>
 
-    <h3>Instagram API</h3>
-    <p>
-        Instagram provides an API for developers to access data from Instagram, which is called Graph API.
-        The Graph API makes it possible to get information about users, media, hashtags, locations, comments, and so on.
-        Unfortunately, the Graph API does not provide information about followers of users, which is needed for the project.
-        This issue, however, can be solved by using the Instagram API for the website and application.
-    </p>
+        <h3>Network example</h3>
+        <p>
+            The following example shows how the network is constructed using the rules above.
+        </p>
+        <div class="graph-container">
+            <app-example-network></app-example-network>
+        </div>
+        
+        
+        <h3>Caffe Pavilon Grebovka</h3>
+        <p>
+            The network contains 325 nodes and 428 edges.
+        </p>
+        <p>
+            It has got 4 strongly connected components, with one component containing more than one node from followers of the cafe (50 nodes in general, 13 of them are followers).
+            But most of the nodes from this component are other businesses in Prague. Potentially, these nodes can represent different companies of the same owner or companies often collaborating during some events.
+        </p>
+        <div class="graph-container">
+            <app-instagram-network [inputTitle]="'Caffe Pavilon Grebovka'" [fileNameInput]="'caffe_pavilon_grebovka'"></app-instagram-network>
+        </div>
 
-    <h3>instagrapi</h3>
-    <p>
-        Instagrapi is an unofficial Instagram API for Python distributed under the MIT License. 
-        It is a wrapper for the Graph API which provides additional functionality.
-        Instagrapi makes it possible to get information about followers of users by using Instagram endpoints fof the website and application.
-    </p>
-    <a href="https://github.com/subzeroid/instagrapi">Source code on GitHub</a>
+        <h3>Cup And Cake</h3>
+        <p>
+            The network contains 2108 nodes and 2181 edges.
+        </p>
+        <p>
+            It has got 7 strongly connected components, 4 of them contain more than one node from followers of the cafe.
+            Each of these components contains real people, so it is possible to assume that local communities are presented here.
+            Also, no other cafes are presented in these components. It can be explained by the fact that this place is located in Nove Butovice, which is a residential area.
+        </p>
+        <p>
+            The betweenness centrality measure is extremley low for all the nodes (at most 0.0001). Most of the followers are subscribed directly to the cafe, with a small number of communities compared to the number of followers.
+        </p>
+        <div class="graph-container">
+            <app-instagram-network [inputTitle]="'Cup And Cake'" [fileNameInput]="'cupandcakeprague'"></app-instagram-network>
+        </div>
 
-    <h3>Problems</h3>
-    <p>
-        From the beginning, the instagrapi library seemed to be promising for achieving the project aim.
-        However, the library has some problems which make it difficult to use.
-    </p>
-    <p>
-        The first problem is that the library uses chunked requests to get information about followers of users.
-        This approach is not efficient because it takes a lot of time to get information about all followers of the user.
-    </p>
-    <p>
-        The second problem is not related to the library itself but to the Instagram policy.
-        Instagram has got different instruments how to prevent scraping data from itself:
-    </p>
-    <ul>
-        <li>Instagram limits the number of requests each 15-20 minutes</li>
-        <li>Instagram limits the number of requests per 6 hours</li>
-        <li>Instagram blocks requests from the same IP address</li>
-        <li>Instagram blocks requests from the same device</li>
-        <li>Instagram blocks requests from the same account</li>
-        <li>Instagram block suspicious accounts</li>
-        <li>Instagram limits its sessions lifetime for suspicious accounts</li>
-    </ul>
+        <h3>Cafe Pivovar Lajka</h3>
+        <p>
+            The network contains 268 nodes and 312 edges.
+        </p>
+        <p>
+            It has got 3 strongly connected components.
+            One of them contains 6 followers from the cafe, including other cafes alongside with real people.
+            The location of this place is Holesovice, with many restaurants around, so it also can be a local community, which includes not only customers, but also "brothers-in-arms".
+        </p>
+        <p>
+            Betweenness centralities of the nodes are low here (at most 0.004). It can be explained by the following: most of the customers mentioned alongside with the cafe are already subscribed to the cafe, and communities are small.
+        </p>
+        <div class="graph-container">
+            <app-instagram-network [inputTitle]="'Cafe Pivovar Lajka'" [fileNameInput]="'lajka_pivovarcafe'"></app-instagram-network>
+        </div>
 
-    <h3>Solutions and Work-arounds</h3>
-    <p>
-        These problems are quite serious and make it difficult to collect the needed data from Instagram.
-        However, it is crucial to at least obtain the data about followers of cafes themselves, without follow connections between followers.
-        These data can be still obtaied by using the instagrapi library with the following work-arounds:
-    </p>
-    <ul>
-        <li>Use a proxy server to change IP address</li>
-        <li>Use a different account for each cafe</li>
-        <li>Use a different account for each session</li>
-    </ul>
-    <p>
-        Also, cafes with a small number of followers will be used to avoid the problem with the number of requests.
-    </p>
-    <p>
-        Yet, it is vital to somehow obtain the data about connections between followers.
-        For this purpose, it is possible to get information about mentions of cafes in posts of followers. 
-        These data are available through the Graph API and can be obtained by using the instagrapi library.
-    </p>
+        <h3>Loft</h3>
+        <p>
+            The network contains 468 nodes and 649 edges. 
+            Due to Instagram API restrictions, followers are presented only partially, so the data are not complete.
+        </p>
+        <p>
+            From the obtained data, it has got 6 strongly connected components, one of them contains 32 visible followers from the cafe.
+            It has got other cafes, local influencers, and real people. This can be explained by the fact that this place is located in Karlin, which is a modern business area.
+        </p>
+        <p>
+            The node with the highest betweenness centrality is Loft (0.19). It is expected. The second highest (0.17) here is a local business account with a large number of followers itself, so it can probably influence other people or it can be just an intersection of communities.
+        </p>
+        <div class="graph-container">
+            <app-instagram-network [inputTitle]="'Loft'" [fileNameInput]="'loftkarlin'"></app-instagram-network>
+        </div>
 
-    <h2>Part II. Network construction</h2>
+        <h3>Cafe Periferie</h3>
+        <p>
+            The network contains 462 nodes and 637 edges. This network faces the same problem as the previous one - it was not possible to obtain all followers of the cafe.
+        </p>
+        <p>
+            It has got 9 strongly connected components, with 3 of them containing more than one node from followers of the cafe.
+            One of the components contains 12 visible followers from the cafe, including other cafes, local influencers, and real people.
+            The reason may be the fact that it is connected to some local community, like Lajka or Loft. 
+            Two other components contain real people, so probably this place is a meeting point for friends.
+        </p>
+        <p>
+            The node with the highest betweenness centrality is the cafe itself (0.14), which is not surprising. However, the second node with the highest betweenness centrality (0.08) is a local influencer, who shows interesting places in Prague. This fact shows the betweenness centrality application in real cases. 
+        </p>
+        <div class="graph-container">
+            <app-instagram-network [inputTitle]="'Cafe Periferie'" [fileNameInput]="'periferiecafe'"></app-instagram-network>
+        </div>
 
-    <p>
-        This part discusses the process of network construction, namely, the used technologies and principles.
-    </p>
-    <h3>Used technologies</h3>
-    <p>
-        The network is constructed by using NetworkX library for Python.
-        NetworkX is a Python package for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks.
-    </p>
-
-    <h3>Principles</h3>
-    <p>
-        To construct a network, it is necessary to define nodes and edges.
-        In our case, nodes are Instagram users and edges are connections between them.
-        The connections are defined by the following rules:
-    </p>
-    <ul>
-        <li>
-            If a user follows a cafe, then there is an edge from the user to the cafe. The weight of the edge is 1.
-        </li>
-        <li>
-            If a user mentions a cafe in a post, then there is also an edge from the user to the cafe. The weight of the edge is increased by 1 with each mention.
-        </li>
-        <li>
-            If a user mentions another user in a post, then there is an edge from the user to the mentioned user and vice-versa. The weight of the edge is 1 (increases with each mention by 1).
-        </li>
-    </ul>
-
-    <app-example-network></app-example-network>
+        <button (click)="onNextPage()">Next page</button>
+    </div>
+    
+    <div *ngIf="pageIndex == 3" class="part focused">
+        <h2>Conclusion</h2>
+        <p>
+            The initial motivation of the project was to try to analyse the Instagram networks of cafes in Prague. 
+            It is a showcase project, which is not intended to be used in real life "as is". However, it demonstrates possible applications of Network Science instruments in business.
+        </p>
+        <p>
+            The hardest part was to obtain the data from Instagram. Generally, the way this project was done is not recommended for real-life applications. With a larger amount of data used for business purposes this approach can even lead to legal consequences.
+            So in case of real-life applications, it is better to use the official Instagram API, relying only on mentions.
+            Another option is to collaborate with Meta itself.
+        </p>
+        <p>
+            The obtained data are not complete, so the results of the analysis are not accurate. 
+            However, the results show that Network Science instruments can be used to analyse Instagram networks of cafes in Prague.
+            The results can be used to get insights about peoples preferences on the market.
+            Also, it demonstrates that it is possible to detect local communities and influencers who brought new customers to a cafe.
+        </p>
+        <button (click)="onNextPage()">Next page</button>
+    </div>
+    
 </div>

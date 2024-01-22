@@ -87,3 +87,85 @@ li {
     margin-right: auto;
     font-size: medium;
 }
+
+div.network-statistics {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+div.network-statistics .network-statistics-item {
+    font-family: 'Chakra Petch', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: rgba(26, 26, 26, 0.25);
+}
+
+.network-statistics-item-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: large;
+    color: whitesmoke;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.network-statistics-item-value {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: medium;
+    color: whitesmoke;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+div.statistics-container {
+    width: 80vw;
+    margin: auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+div.graph-container {
+    width: 800px;
+    margin: auto;
+    text-align: center;
+}
+
+.part {
+    background: #ffffff20;
+    border-radius: 10px;
+    width: 900px;
+    margin: auto;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.focused {
+    scale: 1.5;
+    transform-origin: top;
+}
+
+button {
+    height: 50px;
+    font-family: 'Chakra Petch', sans-serif;
+    background: rgba(26, 26, 26, 0.25);
+    border-radius: 10px;
+    border: 2px solid white;
+    color: white;
+    font-size: large;
+    margin-left: auto;
+    margin-right: auto;
+}

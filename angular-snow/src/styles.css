@@ -21,7 +21,7 @@
 }
 
 .main-background-show {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     width: 100vw;
@@ -34,4 +34,9 @@
 
 .content {
     z-index: 2;
+}
+
+text {
+    color: transparent !important;
+    font-size: 0 !important;
 }

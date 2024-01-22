@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_networkgraph from 'highcharts/modules/networkgraph';
+import * as WheelZoom from 'highcharts/modules/mouse-wheel-zoom';
 HC_networkgraph(Highcharts);
 
 @Component({
@@ -14,9 +15,15 @@ export class ExampleNetworkComponent
 
   chartOptions: Highcharts.Options = {
     chart: {
+      backgroundColor: '#FFFFFF90',
       type: 'networkgraph',
-      height: '500',
-      width: window.innerWidth,
+      height: 400,
+      width: 800,
+      zooming: {
+        mouseWheel: true,
+        type: 'xy',
+        key: 'ctrl'
+      }
     },
     title: {
       text: 'Cafe network'

@@ -1,0 +1,3 @@
+<button *ngIf="!isLoaded" (click)="onLoadClicked()">Load {{title}}</button>
+<highcharts-chart *ngIf="isLoaded" [Highcharts]="Highcharts" [options]="chartOptions"></highcharts-chart>
+<button *ngIf="isLoaded" (click)="onHideClicked()">Hide {{title}}</button>
